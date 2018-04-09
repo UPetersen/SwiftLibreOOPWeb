@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		2752E1AF207A1B5B00BCDC08 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2752E1AE207A1B5B00BCDC08 /* main.swift */; };
+		2752E1B6207A1ED900BCDC08 /* LibreOOPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2752E1B5207A1ED900BCDC08 /* LibreOOPClient.swift */; };
+		2752E1B8207A4E6B00BCDC08 /* LibreOOPWebExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2752E1B7207A4E6B00BCDC08 /* LibreOOPWebExtensions.swift */; };
+		2752E1BC207AA61400BCDC08 /* LibreOOPResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2752E1BB207AA61400BCDC08 /* LibreOOPResponse.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -25,6 +28,9 @@
 /* Begin PBXFileReference section */
 		2752E1AB207A1B5B00BCDC08 /* SwitftOOPWeb */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = SwitftOOPWeb; sourceTree = BUILT_PRODUCTS_DIR; };
 		2752E1AE207A1B5B00BCDC08 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		2752E1B5207A1ED900BCDC08 /* LibreOOPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibreOOPClient.swift; sourceTree = "<group>"; };
+		2752E1B7207A4E6B00BCDC08 /* LibreOOPWebExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibreOOPWebExtensions.swift; sourceTree = "<group>"; };
+		2752E1BB207AA61400BCDC08 /* LibreOOPResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LibreOOPResponse.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -41,7 +47,7 @@
 		2752E1A2207A1B5B00BCDC08 = {
 			isa = PBXGroup;
 			children = (
-				2752E1AD207A1B5B00BCDC08 /* SwitftOOPWeb */,
+				2752E1AD207A1B5B00BCDC08 /* SwiftLibreOOPWeb */,
 				2752E1AC207A1B5B00BCDC08 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -54,12 +60,15 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		2752E1AD207A1B5B00BCDC08 /* SwitftOOPWeb */ = {
+		2752E1AD207A1B5B00BCDC08 /* SwiftLibreOOPWeb */ = {
 			isa = PBXGroup;
 			children = (
+				2752E1BB207AA61400BCDC08 /* LibreOOPResponse.swift */,
 				2752E1AE207A1B5B00BCDC08 /* main.swift */,
+				2752E1B5207A1ED900BCDC08 /* LibreOOPClient.swift */,
+				2752E1B7207A4E6B00BCDC08 /* LibreOOPWebExtensions.swift */,
 			);
-			path = SwitftOOPWeb;
+			path = SwiftLibreOOPWeb;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -120,6 +129,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2752E1B8207A4E6B00BCDC08 /* LibreOOPWebExtensions.swift in Sources */,
+				2752E1B6207A1ED900BCDC08 /* LibreOOPClient.swift in Sources */,
+				2752E1BC207AA61400BCDC08 /* LibreOOPResponse.swift in Sources */,
 				2752E1AF207A1B5B00BCDC08 /* main.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
