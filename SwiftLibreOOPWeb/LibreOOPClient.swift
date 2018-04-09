@@ -7,7 +7,7 @@
 //
 
 import Foundation
-class RemoteBG{
+class LibreOOPClient{
     
     private var accesstoken: String
     private var uploadEndpoint = "http://libreoopweb.azurewebsites.net/api/CreateRequestAsync"
@@ -120,7 +120,7 @@ class RemoteBG{
     }
     public func uploadReading(reading: [UInt8], _ successHandler:@escaping (( _ resp: LibreOOPResponse )-> Void)){
         
-        let r = RemoteBG.readingToString(reading)
+        let r = LibreOOPClient.readingToString(reading)
         NSLog("uploading reading! " + r)
         postToServer({ (data, response, success)  in
             NSLog("uploadreading succeeded with response: " + response)

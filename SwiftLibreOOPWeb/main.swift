@@ -58,7 +58,7 @@ var patch : [UInt8] = [0x3a, 0xcf, 0x10, 0x16, 0x03, 0x00, 0x00, 0x00,
 //note that the accesstoken will be given to you by the libreoopweb admin
 let accesstoken = "someName-FollowedByRandomNumberGivenToYouByLibreoopwebAdmin"
 
-let remote = RemoteBG(accesstoken: accesstoken)
+let remote = LibreOOPClient(accesstoken: accesstoken)
 let sema = DispatchSemaphore( value: 0 )
 
 remote.uploadReading(reading: patch) { (resp) in
