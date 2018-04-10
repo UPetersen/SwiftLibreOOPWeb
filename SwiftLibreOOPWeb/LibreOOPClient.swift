@@ -33,11 +33,13 @@ class LibreOOPClient{
         let task = URLSession.shared.dataTask(with: request as URLRequest){
             data, response, error in
             
-            let responseString = String(data: data!, encoding: String.Encoding.utf8)
-            if responseString != nil {
-                
-                completion(data!, responseString!, true)
-                
+            guard let data = data else {
+                completion("network error".data(using: .utf8)!, "network error", false)
+                return
+            }
+            
+            if let response = String(data: data, encoding: String.Encoding.utf8) {
+                completion(data, response, true)
             }
             
         }
@@ -90,6 +92,11 @@ class LibreOOPClient{
     private func getStatus(uuid: String, _ completion:@escaping ((  _ success: Bool, _ message: String, _ response: String? )-> Void)){
         postToServer({ (data, response, success) in
             NSLog("getstatus here:" + response)
+            if(!success) {
+                NSLog("Get status failed")
+                completion(false, response, response)
+                return
+            }
             let decoder = JSONDecoder()
             do {
                 let response = try decoder.decode(LibreOOPResponse.self, from: data)
@@ -118,14 +125,15 @@ class LibreOOPClient{
             
         }, postURL: statusEndpoint, postparams: ["accesstoken": self.accesstoken, "uuid": uuid])
     }
-    public func uploadReading(reading: [UInt8], _ successHandler:@escaping (( _ resp: LibreOOPResponse )-> Void)){
+    public func uploadReading(reading: [UInt8], _ completion:@escaping (( _ resp: LibreOOPResponse?, _ success: Bool, _ errorMessage: String)-> Void)){
         
         let r = LibreOOPClient.readingToString(reading)
         NSLog("uploading reading! " + r)
         postToServer({ (data, response, success)  in
-            NSLog("uploadreading succeeded with response: " + response)
+            NSLog("uploadreading completed with response: " + response)
             if(!success) {
                 NSLog("Did not succeed uploading request!")
+                completion(nil, false, "network error!?")
                 return
             }
             let decoder = JSONDecoder()
@@ -136,12 +144,14 @@ class LibreOOPClient{
                     return;
                 }
                 
-                NSLog("result was successfully received!")
-                successHandler(result);
+                NSLog("result was successsfully received!")
+                completion(result, true, "");
                 return;
                 
             } catch let error as NSError{
                 NSLog("uploadreading error decoding:" + error.localizedDescription)
+                completion(nil, false, error.localizedDescription)
+                return
             }
             
         }, postURL: uploadEndpoint, postparams: ["accesstoken": self.accesstoken, "b64contents": r])

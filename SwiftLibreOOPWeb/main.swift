@@ -57,12 +57,16 @@ var patch : [UInt8] = [0x3a, 0xcf, 0x10, 0x16, 0x03, 0x00, 0x00, 0x00,
 
 //note that the accesstoken will be given to you by the libreoopweb admin
 let accesstoken = "someName-FollowedByRandomNumberGivenToYouByLibreoopwebAdmin"
-
 let remote = LibreOOPClient(accesstoken: accesstoken)
 let sema = DispatchSemaphore( value: 0 )
 
-remote.uploadReading(reading: patch) { (resp) in
-    if let uuid = resp.result?.uuid{
+remote.uploadReading(reading: patch) { (resp, success, errormessage) in
+    if(!success) {
+        NSLog("remote: upload reading failed! \(errormessage)")
+        return
+    }
+    
+    if let resp=resp, let uuid = resp.result?.uuid {
         print("uuid received: " + uuid)
 
         // The completion handler will be called once the result is available, or when a timeout is received
