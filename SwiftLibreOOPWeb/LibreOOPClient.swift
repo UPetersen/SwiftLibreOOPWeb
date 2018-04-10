@@ -10,8 +10,8 @@ import Foundation
 class LibreOOPClient{
     
     private var accesstoken: String
-    private var uploadEndpoint = "http://libreoopweb.azurewebsites.net/api/CreateRequestAsync"
-    private var statusEndpoint = "http://libreoopweb.azurewebsites.net/api/GetStatus"
+    private var uploadEndpoint = "https://libreoopweb.azurewebsites.net/api/CreateRequestAsync"
+    private var statusEndpoint = "https://libreoopweb.azurewebsites.net/api/GetStatus"
 
     init(accesstoken: String) {
         self.accesstoken = accesstoken
