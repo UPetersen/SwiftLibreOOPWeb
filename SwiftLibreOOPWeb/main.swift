@@ -56,8 +56,12 @@ var patch : [UInt8] = [0x3a, 0xcf, 0x10, 0x16, 0x03, 0x00, 0x00, 0x00,
 0x0e, 0x6e, 0x1a, 0xc8, 0x04, 0xdd, 0x58, 0x6d];
 
 //note that the accesstoken will be given to you by the libreoopweb admin
-let accesstoken = "someName-FollowedByRandomNumberGivenToYouByLibreoopwebAdmin"
-let remote = LibreOOPClient(accesstoken: accesstoken)
+let accessToken = "someName-FollowedByRandomNumberGivenToYouByLibreoopwebAdmin"
+
+let site = "https://libreoopweb.azurewebsites.net"
+
+let remote = LibreOOPClient(accessToken: accessToken, site: site)
+
 let sema = DispatchSemaphore( value: 0 )
 
 remote.uploadReading(reading: patch) { (resp, success, errormessage) in
@@ -78,10 +82,7 @@ remote.uploadReading(reading: patch) { (resp, success, errormessage) in
             
             NSLog("GetStatusIntervalled returned with success?: \(success), error: \(errormessage), response: \(response))")
         })
-        
     }
-    
-    
 }
 
 
