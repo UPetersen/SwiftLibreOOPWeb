@@ -9,13 +9,14 @@
 import Foundation
 class LibreOOPClient{
     
-    private var accesstoken: String
-    private var uploadEndpoint = "https://libreoopweb.azurewebsites.net/api/CreateRequestAsync"
-    private var statusEndpoint = "https://libreoopweb.azurewebsites.net/api/GetStatus"
-
-    init(accesstoken: String) {
-        self.accesstoken = accesstoken
-       
+    private var accessToken: String
+    private var uploadEndpoint: String   // = "https://libreoopweb.azurewebsites.net/api/CreateRequestAsync"
+    private var statusEndpoint: String   // = "https://libreoopweb.azurewebsites.net/api/GetStatus"
+    
+    init(accessToken: String, site: String = "https://libreoopweb.azurewebsites.net") {
+        self.accessToken = accessToken
+        uploadEndpoint = site + "/api/CreateRequestAsync"
+        statusEndpoint = site + "/api/GetStatus"
     }
     
     private static func readingToString(_ a: [UInt8]) -> String{
@@ -81,14 +82,14 @@ class LibreOOPClient{
                 }
                 
             }
-        
+            
             completion(succeeded,  error, remoteResponse)
             
             
             
         }
     }
-
+    
     private func getStatus(uuid: String, _ completion:@escaping ((  _ success: Bool, _ message: String, _ response: String? )-> Void)){
         postToServer({ (data, response, success) in
             NSLog("getstatus here:" + response)
@@ -123,7 +124,7 @@ class LibreOOPClient{
                 return
             }
             
-        }, postURL: statusEndpoint, postparams: ["accesstoken": self.accesstoken, "uuid": uuid])
+        }, postURL: statusEndpoint, postparams: ["accesstoken": self.accessToken, "uuid": uuid])
     }
     public func uploadReading(reading: [UInt8], _ completion:@escaping (( _ resp: LibreOOPResponse?, _ success: Bool, _ errorMessage: String)-> Void)){
         
@@ -154,7 +155,9 @@ class LibreOOPClient{
                 return
             }
             
-        }, postURL: uploadEndpoint, postparams: ["accesstoken": self.accesstoken, "b64contents": r])
+        }, postURL: uploadEndpoint, postparams: ["accesstoken": self.accessToken, "b64contents": r])
     }
     
 }
+
+

@@ -38,3 +38,4 @@ extension String {
         return self.addingPercentEncoding(withAllowedCharacters: characterSet as CharacterSet)
     }
 }
+
