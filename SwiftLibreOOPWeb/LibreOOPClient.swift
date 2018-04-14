@@ -49,46 +49,78 @@ class LibreOOPClient{
         
         
     }
+
     
-    public func getStatusIntervalled(uuid: String, intervalSeconds:UInt32=10, maxTries: Int8=6, _ completion:@escaping ((  _ success: Bool, _ message: String, _ response: String )-> Void)) {
-        let q = DispatchQueue.global()
+    public func getStatusIntervalled(uuid: String, intervalSeconds:UInt32=10, maxTries: Int8=6, _ completion:@escaping ((  _ success: Bool, _ message: String, _ oopCurrentValue: OOPCurrentValue? ) -> Void)) {
+        
+        let queue = DispatchQueue.global()
         let sem = DispatchSemaphore(value: 0)
-        var remoteResponse = "N/A"
+        var oopCurrentValue: OOPCurrentValue? = nil
         var succeeded = false;
         var error = ""
-        q.async  {
+        
+        queue.async { 
             for i in 1...maxTries {
                 NSLog("Attempt \(i): Waiting \(intervalSeconds) seconds before calling getstatus")
                 sleep(intervalSeconds)
                 NSLog("Finished waiting \(intervalSeconds) seconds before calling getstatus")
-                if(succeeded) {
+                if (succeeded) {
                     break
                 }
                 self.getStatus(uuid: uuid, { (success, errormsg, response) in
-                    if(success) {
+                    if (success) {
                         succeeded = true
-                        remoteResponse = response!
+                        oopCurrentValue = self.getOOPCurrentValue(from: response)
                     } else {
                         error = errormsg
                     }
-                    
                     sem.signal()
                 })
                 
                 sem.wait();
-                NSLog("Hey hop, response received: \(remoteResponse) , success: \(succeeded)");
-                if(succeeded) {
-                    break
+                
+                if let oopCurrentValue = oopCurrentValue {
+                    NSLog("Hey hop, response received with success: \(succeeded)");
+                    NSLog("Decoded content")
+                    NSLog("  Current trend: \(oopCurrentValue.currentTrend)")
+                    NSLog("  Current bg: \(oopCurrentValue.currentBg)")
+                    NSLog("  Current time: \(oopCurrentValue.currentTime)")
+                    NSLog("  Serial Number: \(oopCurrentValue.serialNumber ?? "-")")
+                    NSLog("  timeStamp: \(oopCurrentValue.timestamp)")
+                    var i = 0
+                    for historyValue in oopCurrentValue.historyValues {
+                        NSLog(String(format: "    #%02d: time: \(historyValue.time), quality: \(historyValue.quality), bg: \(historyValue.bg)", i))
+                        i += 1
+                    }
                 }
                 
+                if (succeeded) {
+                    break
+                }
             }
             
-            completion(succeeded,  error, remoteResponse)
-            
-            
-            
+            completion(succeeded, error, oopCurrentValue)
         }
     }
+    
+    private func getOOPCurrentValue(from response: String?) -> OOPCurrentValue? {
+        // Decode json response string into OOPCurrentValue struct.
+        // This requires to remove the beginning of the response string up to "FullAlgoResults"
+        if let response = response,
+            let jsonStringStartIndex = response.range(of: "FullAlgoResults: ")?.upperBound {
+            do {
+                let jsonString = String(response.suffix(from: jsonStringStartIndex))
+                if let jsonData = jsonString.data(using: .utf8) {
+                    let oopCurrentValue = try JSONDecoder().decode(OOPCurrentValue.self, from: jsonData)
+                    return oopCurrentValue
+                }
+            } catch let error {
+                NSLog("Error decoding json respons: \(error)")
+            }
+        }
+        return nil
+    }
+
     
     private func getStatus(uuid: String, _ completion:@escaping ((  _ success: Bool, _ message: String, _ response: String? )-> Void)){
         postToServer({ (data, response, success) in

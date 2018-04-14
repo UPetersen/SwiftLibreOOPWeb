@@ -80,35 +80,23 @@ remote.uploadReading(reading: patch) { (response, success, errormessage) in
         // The completion handler will be called once the result is available, or when a timeout is received
         // The timeout can be calculated as approx (intervalSeconds * maxTries) seconds
         // In case of timeout, the success parameter will be false, errormessage will have contents
-        // and the response will be "N/A"
-        // In case of success, response will be a string containing the result of the Algorithm
-        remote.getStatusIntervalled(uuid: uuid, { (success, errormessage, response) in
+        // and the oopCurrentValue will be nil
+        // In case of success, oopCurrentValue will be a struct containing the result of the Algorithm
+        remote.getStatusIntervalled(uuid: uuid, { (success, errormessage, oopCurrentValue) in
             
-            NSLog("GetStatusIntervalled returned with success?: \(success), error: \(errormessage), response: \(response))")
-
-            if let jsonStringStartIndex = response.range(of: "FullAlgoResults: ")?.upperBound {
-
-                do {
-                    let jsonString = response.suffix(from: jsonStringStartIndex)
-                    let jsonData = String(jsonString).data(using: .utf8)!
-                    let oopCurrentValue = try JSONDecoder().decode(OOPCurrentValue.self, from: jsonData)
-                    
-                    print("\nRelevant json string: \n\(jsonString)")
-                    print("Decoded content")
-                    print("  Current trend: \(oopCurrentValue.currentTrend)")
-                    print("  Current bg: \(oopCurrentValue.currentBg)")
-                    print("  Current time: \(oopCurrentValue.currentTime)")
-                    print("  Serial Number: \(oopCurrentValue.serialNumber ?? "-")")
-                    print("  timeStamp: \(oopCurrentValue.timestamp)")
-                    
-                    var i = 0
-                    for historyValue in oopCurrentValue.historyValues {
-                        print(String(format: "    #%02d: time: \(historyValue.time), quality: \(historyValue.quality), bg: \(historyValue.bg)", i))
-                        i += 1
-                    }
-                    
-                } catch let error {
-                    print("Error", error)
+            NSLog("GetStatusIntervalled returned with success?: \(success), error: \(errormessage), response: \(String(describing: oopCurrentValue)))")
+            
+            if let oopCurrentValue = oopCurrentValue {
+                NSLog("Decoded content")
+                NSLog("  Current trend: \(oopCurrentValue.currentTrend)")
+                NSLog("  Current bg: \(oopCurrentValue.currentBg)")
+                NSLog("  Current time: \(oopCurrentValue.currentTime)")
+                NSLog("  Serial Number: \(oopCurrentValue.serialNumber ?? "-")")
+                NSLog("  timeStamp: \(oopCurrentValue.timestamp)")
+                var i = 0
+                for historyValue in oopCurrentValue.historyValues {
+                    NSLog(String(format: "    #%02d: time: \(historyValue.time), quality: \(historyValue.quality), bg: \(historyValue.bg)", i))
+                    i += 1
                 }
             }
         })
