@@ -8,6 +8,35 @@
 
 import Foundation
 
+struct OOPCurrentValue: Codable {
+    let currentTrend: Int
+    let currentBg: Double
+    let currentTime: Int
+    let historyValues: [OOPHistoryValue]
+    let serialNumber: String?
+    let timestamp: Int
+    
+    enum CodingKeys: String, CodingKey {
+        case currentTrend = "currenTrend"  // TODO: rename currenTrend to currentTrend
+        case currentBg
+        case currentTime
+        case historyValues = "historicBg"
+        case serialNumber
+        case timestamp
+    }
+}
+
+struct OOPHistoryValue: Codable {
+    let bg: Double
+    let quality: Int
+    let time: Int
+    
+    enum Codingkeys: String, CodingKey {
+        case bg
+        case quality
+        case time 
+    }
+}
 
 struct LibreOOPResponse: Codable {
     let error: Bool
