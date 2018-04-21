@@ -8,9 +8,8 @@
 
 import Foundation
 
-// Example Libre patch contents
-// This would typically by a full readout
-// of the sensor from a blureader,blucon, miaomiao or some other nfc to bluetooth bridge
+// Example Libre patch contents.
+// This would typically by a full readout of the sensor from a blureader,blucon, miaomiao or some other nfc to bluetooth bridge.
 var patch : [UInt8] = [
     0x3a, 0xcf, 0x10, 0x16, 0x03, 0x00, 0x00, 0x00, // 0x00 Begin of header
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 0x01
@@ -61,29 +60,11 @@ var patch : [UInt8] = [
 // "Hey hop, response received: some value from android: currentBg: 63 FullAlgoResults: {"currenTrend":0,"currentBg":63.0,"currentTime":4568,"historicBg":[{"bg":111.0,"quality":0,"time":4095},{"bg":115.0,"quality":0,"time":4110},{"bg":113.0,"quality":0,"time":4125},{"bg":129.0,"quality":0,"time":4140},{"bg":172.0,"quality":0,"time":4155},{"bg":169.0,"quality":0,"time":4170},{"bg":137.0,"quality":0,"time":4185},{"bg":132.0,"quality":0,"time":4200},{"bg":153.0,"quality":0,"time":4215},{"bg":212.0,"quality":0,"time":4230},{"bg":260.0,"quality":0,"time":4245},{"bg":286.0,"quality":0,"time":4260},{"bg":295.0,"quality":0,"time":4275},{"bg":276.0,"quality":0,"time":4290},{"bg":232.0,"quality":0,"time":4305},{"bg":179.0,"quality":0,"time":4320},{"bg":153.0,"quality":0,"time":4335},{"bg":156.0,"quality":0,"time":4350},{"bg":167.0,"quality":0,"time":4365},{"bg":181.0,"quality":0,"time":4380},{"bg":179.0,"quality":0,"time":4395},{"bg":162.0,"quality":0,"time":4410},{"bg":150.0,"quality":0,"time":4425},{"bg":133.0,"quality":0,"time":4440},{"bg":115.0,"quality":0,"time":4455},{"bg":107.0,"quality":0,"time":4470},{"bg":100.0,"quality":0,"time":4485},{"bg":91.0,"quality":0,"time":4500},{"bg":81.0,"quality":0,"time":4515},{"bg":69.0,"quality":0,"time":4530},{"bg":62.0,"quality":0,"time":4545},{"bg":0.0,"quality":1,"time":4560}],"serialNumber":"","timestamp":0}
 
 
-// Experiment section: Modify some data, calculate the correct crc for the modified data and send it too OOP
-// Status byte is 0x00, crc is AC 18 -> response is normal response
-// Status byte is 0x01, crc is 57 72 -> response is -2
-// Status byte is 0x02, crc is c1 a5 -> response is normal response
-// Status byte is 0x03, crc is 3a cf -> response is normal response
-// Status byte is 0x04, crc is 0a cE -> response is normal response
-// Status byte is 0x05, crc is f1 a4 -> response is -2
-// Status byte is 0x06, crc is 67 73 -> response is -2
-// Time: 4571 (0xe111). CRC is da 45. Response is time 4568 and #31 with 4560
-// Time: 4570 (0xe011). CRC is e2 98. Response is time 4568 and #31 with 4560
-// Time: 4569 (0xd911). CRC is 4f 11. Response is time 4568 and #31 with 4560 (Original data set. time: 0xd911-> bytes swapped -> 0x11d9 = 4569. CRC is 4f 11)
-// Time: 4568 (0xd811). CRC is 77 cc. Response is time 4568 and #31 with 4560
-// Time: 4567 (0xd711). CRC is 3a 53. Response is -2
-// Time: 4566 (0xd611). CRC is 02 8e. Response is -2
-
-let statusByte = UInt8(0x04)
-patch[4] = statusByte
-
-
-patch = SensorData(bytes: patch)!.bytesWithCorrectCRC()
-let sensorData = SensorData(bytes: patch)!
-
-// End of experiment section
+//// If you want to experiment with the oop algorithm and feed it with tweaked data, you can uncomment the following code wich is an example for a different status byte instead of the status byte of the original data.
+//    // set 0x04 instead of 0x03 as status byte of the patch data
+//    patch[4] = UInt8(0x04)
+//    // recalculate patch data crcs such that the crcs match the modified data and the can be feed into the OOP algorithm
+//    patch = SensorData(bytes: patch)!.bytesWithCorrectCRC()
 
 
 //note that the accesstoken will be given to you by the libreoopweb admin
