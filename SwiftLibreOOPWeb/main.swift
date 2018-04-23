@@ -75,7 +75,8 @@ let site = "https://libreoopweb.azurewebsites.net"
 let remote = LibreOOPClient(accessToken: accessToken, site: site)
 let sema = DispatchSemaphore( value: 0 )
 
-remote.uploadReading(reading: patch) { (response, success, errormessage) in
+//oldState: LibreOOPDefaults.defaultState, sensorStartTimestamp: LibreOOPDefaults.sensorStartTimestamp, sensorScanTimestamp: LibreOOPDefaults.sensorScanTimestamp, currentUtcOffset: LibreOOPDefaults.currentUtcOffset
+remote.uploadReading(reading: patch ) { (response, success, errormessage) in
     if(!success) {
         NSLog("remote: upload reading failed! \(errormessage)")
         return

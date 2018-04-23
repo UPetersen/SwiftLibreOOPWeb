@@ -167,7 +167,25 @@ class LibreOOPClient{
             
         }, postURL: statusEndpoint, postparams: ["accesstoken": self.accessToken, "uuid": uuid])
     }
-    public func uploadReading(reading: [UInt8], _ completion:@escaping (( _ resp: LibreOOPResponse?, _ success: Bool, _ errorMessage: String)-> Void)){
+    public func uploadReading(reading: [UInt8], oldState:String?=nil, sensorStartTimestamp: Int?=nil, sensorScanTimestamp: Int?=nil, currentUtcOffset:Int?=nil, _ completion:@escaping (( _ resp: LibreOOPResponse?, _ success: Bool, _ errorMessage: String)-> Void)){
+        var postParams = ["accesstoken": self.accessToken, "b64contents": LibreOOPClient.readingToString(reading)]
+        
+        if let oldState = oldState {
+            postParams["oldState"] = oldState
+        }
+        
+        if let sensorStartTimestamp = sensorStartTimestamp {
+            postParams["sensorStartTimestamp"] = "\(sensorStartTimestamp)"
+        }
+        
+        if let sensorScanTimestamp = sensorScanTimestamp {
+            postParams["sensorScanTimestamp"] = "\(sensorScanTimestamp)"
+        }
+        
+        if let currentUtcOffset = currentUtcOffset {
+            postParams["currentUtcOffset"] = "\(currentUtcOffset)"
+        }
+        
         
         postToServer({ (data, response, success)  in
             
@@ -180,7 +198,8 @@ class LibreOOPClient{
             do {
                 let result = try decoder.decode(LibreOOPResponse.self, from: data)
                 if let msg = result.message {
-                    NSLog("Error sending request " + msg)
+                    
+                    completion(nil, false, msg)
                     return;
                 }
                 
@@ -193,7 +212,7 @@ class LibreOOPClient{
                 return
             }
             
-        }, postURL: uploadEndpoint, postparams: ["accesstoken": self.accessToken, "b64contents": LibreOOPClient.readingToString(reading)])
+        }, postURL: uploadEndpoint, postparams: postParams)
     }
     
 }

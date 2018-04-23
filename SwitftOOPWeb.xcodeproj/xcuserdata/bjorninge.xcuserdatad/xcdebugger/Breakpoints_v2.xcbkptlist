@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   type = "1"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SwitftOOPWeb/RemoteBG.swift"
+            timestampString = "544985185.608153"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "33"
+            endingLineNumber = "33"
+            landmarkName = "postToServer(_:postURL:postparams:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "SwitftOOPWeb.RemoteBG.(postToServer in _E6F5B988EF3CCB888DFE080510BF7F0F)((Swift.String, Swift.Bool) -&gt; (), postURL: Swift.String, postString: Swift.String) -&gt; ()"
+                  moduleName = "SwitftOOPWeb"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/bjorninge/Code/SwitftOOPWeb/SwitftOOPWeb/RemoteBG.swift"
+                  timestampString = "544885930.522604"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "31"
+                  endingLineNumber = "31"
+                  offsetFromSymbolStart = "1078">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Optional&lt;Foundation.Data&gt;, Swift.Optional&lt;__ObjC.URLResponse&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in SwitftOOPWeb.RemoteBG.(postToServer in _E6F5B988EF3CCB888DFE080510BF7F0F)((Swift.String, Swift.Bool) -&gt; (), postURL: Swift.String, postString: Swift.String) -&gt; ()"
+                  moduleName = "SwitftOOPWeb"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/bjorninge/Code/SwitftOOPWeb/SwitftOOPWeb/RemoteBG.swift"
+                  timestampString = "544885930.525987"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "34"
+                  endingLineNumber = "34"
+                  offsetFromSymbolStart = "52">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SwitftOOPWeb/RemoteBG.swift"
+            timestampString = "544985185.608253"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "35"
+            endingLineNumber = "35"
+            landmarkName = "postToServer(_:postURL:postparams:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SwitftOOPWeb/RemoteBG.swift"
+            timestampString = "544985185.608328"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "94"
+            endingLineNumber = "94"
+            landmarkName = "uploadReading(reading:_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SwitftOOPWeb/RemoteBG.swift"
+            timestampString = "544985185.608394"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "88"
+            endingLineNumber = "88"
+            landmarkName = "uploadReading(reading:_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SwitftOOPWeb/RemoteBG.swift"
+            timestampString = "544985185.6084599"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "56"
+            endingLineNumber = "56"
+            landmarkName = "getStatus(uuid:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SwiftLibreOOPWeb/LibreOOPClient.swift"
+            timestampString = "546198526.5823621"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "105"
+            endingLineNumber = "105"
+            landmarkName = "getStatusIntervalled(uuid:intervalSeconds:maxTries:_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SwiftLibreOOPWeb/main.swift"
+            timestampString = "546198526.5824341"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "70"
+            endingLineNumber = "70"
+            landmarkName = "unknown"
+            landmarkType = "0">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SwiftLibreOOPWeb/LibreOOPClient.swift"
+            timestampString = "546198526.582898"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "190"
+            endingLineNumber = "190"
+            landmarkName = "uploadReading(reading:oldState:sensorStartTimestamp:sensorScanTimestamp:currentUtcOffset:_:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "SwitftOOPWeb.LibreOOPClient.uploadReading(reading: Swift.Array&lt;Swift.UInt8&gt;, oldState: Swift.Optional&lt;Swift.String&gt;, sensorStartTimestamp: Swift.Optional&lt;Swift.Int&gt;, sensorScanTimestamp: Swift.Optional&lt;Swift.Int&gt;, currentUtcOffset: Swift.Optional&lt;Swift.Int&gt;, (Swift.Optional&lt;SwitftOOPWeb.LibreOOPResponse&gt;, Swift.Bool, Swift.String) -&gt; ()) -&gt; ()"
+                  moduleName = "SwitftOOPWeb"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/bjorninge/Code/SwitftOOPWeb/SwiftLibreOOPWeb/LibreOOPClient.swift"
+                  timestampString = "546197758.2477911"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "190"
+                  endingLineNumber = "190"
+                  offsetFromSymbolStart = "2905">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Foundation.Data, Swift.String, Swift.Bool) -&gt; () in SwitftOOPWeb.LibreOOPClient.uploadReading(reading: Swift.Array&lt;Swift.UInt8&gt;, oldState: Swift.Optional&lt;Swift.String&gt;, sensorStartTimestamp: Swift.Optional&lt;Swift.Int&gt;, sensorScanTimestamp: Swift.Optional&lt;Swift.Int&gt;, currentUtcOffset: Swift.Optional&lt;Swift.Int&gt;, (Swift.Optional&lt;SwitftOOPWeb.LibreOOPResponse&gt;, Swift.Bool, Swift.String) -&gt; ()) -&gt; ()"
+                  moduleName = "SwitftOOPWeb"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/bjorninge/Code/SwitftOOPWeb/SwiftLibreOOPWeb/LibreOOPClient.swift"
+                  timestampString = "546197758.249756"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "192"
+                  endingLineNumber = "192"
+                  offsetFromSymbolStart = "93">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SwiftLibreOOPWeb/LibreOOPClient.swift"
+            timestampString = "546198526.582973"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "197"
+            endingLineNumber = "197"
+            landmarkName = "uploadReading(reading:oldState:sensorStartTimestamp:sensorScanTimestamp:currentUtcOffset:_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SwiftLibreOOPWeb/LibreOOPClient.swift"
+            timestampString = "546198526.583037"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "210"
+            endingLineNumber = "210"
+            landmarkName = "uploadReading(reading:oldState:sensorStartTimestamp:sensorScanTimestamp:currentUtcOffset:_:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Foundation.Data, Swift.String, Swift.Bool) -&gt; () in SwitftOOPWeb.LibreOOPClient.uploadReading(reading: Swift.Array&lt;Swift.UInt8&gt;, oldState: Swift.Optional&lt;Swift.String&gt;, sensorStartTimestamp: Swift.Optional&lt;Swift.Int&gt;, sensorScanTimestamp: Swift.Optional&lt;Swift.Int&gt;, currentUtcOffset: Swift.Optional&lt;Swift.Int&gt;, (Swift.Optional&lt;SwitftOOPWeb.LibreOOPResponse&gt;, Swift.Bool, Swift.String) -&gt; ()) -&gt; ()"
+                  moduleName = "SwitftOOPWeb"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/bjorninge/Code/SwitftOOPWeb/SwiftLibreOOPWeb/LibreOOPClient.swift"
+                  timestampString = "546198527.058161"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "210"
+                  endingLineNumber = "210"
+                  offsetFromSymbolStart = "4061">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Foundation.Data, Swift.String, Swift.Bool) -&gt; () in SwitftOOPWeb.LibreOOPClient.uploadReading(reading: Swift.Array&lt;Swift.UInt8&gt;, oldState: Swift.Optional&lt;Swift.String&gt;, sensorStartTimestamp: Swift.Optional&lt;Swift.Int&gt;, sensorScanTimestamp: Swift.Optional&lt;Swift.Int&gt;, currentUtcOffset: Swift.Optional&lt;Swift.Int&gt;, (Swift.Optional&lt;SwitftOOPWeb.LibreOOPResponse&gt;, Swift.Bool, Swift.String) -&gt; ()) -&gt; ()"
+                  moduleName = "SwitftOOPWeb"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/bjorninge/Code/SwitftOOPWeb/SwiftLibreOOPWeb/LibreOOPClient.swift"
+                  timestampString = "546198527.06196"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "210"
+                  endingLineNumber = "210"
+                  offsetFromSymbolStart = "4731">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>

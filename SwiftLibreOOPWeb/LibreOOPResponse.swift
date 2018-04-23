@@ -40,7 +40,7 @@ struct OOPHistoryValue: Codable {
 
 struct LibreOOPResponse: Codable {
     let error: Bool
-    let command: String
+    let command: String?
     let message: String?
     let result: Result?
     
@@ -51,6 +51,8 @@ struct LibreOOPResponse: Codable {
         case result = "Result"
     }
 }
+
+
 
 struct Result: Codable {
     let createdOn, modifiedOn, uuid, b64Contents: String

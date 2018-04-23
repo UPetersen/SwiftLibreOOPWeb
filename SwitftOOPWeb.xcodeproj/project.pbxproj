@@ -11,6 +11,7 @@
 		2752E1B6207A1ED900BCDC08 /* LibreOOPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2752E1B5207A1ED900BCDC08 /* LibreOOPClient.swift */; };
 		2752E1B8207A4E6B00BCDC08 /* LibreOOPWebExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2752E1B7207A4E6B00BCDC08 /* LibreOOPWebExtensions.swift */; };
 		2752E1BC207AA61400BCDC08 /* LibreOOPResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2752E1BB207AA61400BCDC08 /* LibreOOPResponse.swift */; };
+		27D0586B208E4B41000A05D7 /* LibreOOPDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D0586A208E4B41000A05D7 /* LibreOOPDefaults.swift */; };
 		C66625BD208B14EB0044D0B1 /* CRC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66625BC208B14EB0044D0B1 /* CRC.swift */; };
 		C66625BF208B1E820044D0B1 /* SensorData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66625BE208B1E820044D0B1 /* SensorData.swift */; };
 		C66625C1208B1EB10044D0B1 /* SensorState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66625C0208B1EB10044D0B1 /* SensorState.swift */; };
@@ -35,6 +36,7 @@
 		2752E1B5207A1ED900BCDC08 /* LibreOOPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibreOOPClient.swift; sourceTree = "<group>"; };
 		2752E1B7207A4E6B00BCDC08 /* LibreOOPWebExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibreOOPWebExtensions.swift; sourceTree = "<group>"; };
 		2752E1BB207AA61400BCDC08 /* LibreOOPResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LibreOOPResponse.swift; sourceTree = "<group>"; };
+		27D0586A208E4B41000A05D7 /* LibreOOPDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibreOOPDefaults.swift; sourceTree = "<group>"; };
 		C66625BC208B14EB0044D0B1 /* CRC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CRC.swift; sourceTree = "<group>"; };
 		C66625BE208B1E820044D0B1 /* SensorData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SensorData.swift; sourceTree = "<group>"; };
 		C66625C0208B1EB10044D0B1 /* SensorState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SensorState.swift; sourceTree = "<group>"; };
@@ -71,6 +73,7 @@
 		2752E1AD207A1B5B00BCDC08 /* SwiftLibreOOPWeb */ = {
 			isa = PBXGroup;
 			children = (
+				27D0586A208E4B41000A05D7 /* LibreOOPDefaults.swift */,
 				2752E1BB207AA61400BCDC08 /* LibreOOPResponse.swift */,
 				2752E1AE207A1B5B00BCDC08 /* main.swift */,
 				2752E1B5207A1ED900BCDC08 /* LibreOOPClient.swift */,
@@ -157,6 +160,7 @@
 				2752E1AF207A1B5B00BCDC08 /* main.swift in Sources */,
 				C66625C1208B1EB10044D0B1 /* SensorState.swift in Sources */,
 				C66625BF208B1E820044D0B1 /* SensorData.swift in Sources */,
+				27D0586B208E4B41000A05D7 /* LibreOOPDefaults.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -277,7 +281,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 26F6YWJYL8;
+				DEVELOPMENT_TEAM = L28K36YETG;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 			};
@@ -287,7 +291,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 26F6YWJYL8;
+				DEVELOPMENT_TEAM = L28K36YETG;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 			};
