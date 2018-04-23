@@ -72,7 +72,7 @@ class LibreOOPClient{
                 self.getStatus(uuid: uuid, { (success, errormsg, response, newState) in
                     if (success) {
                         succeeded = true
-                        newState2 = newState!
+                        newState2 = newState ?? ""
                         oopCurrentValue = self.getOOPCurrentValue(from: response)
                     } else {
                         error = errormsg
