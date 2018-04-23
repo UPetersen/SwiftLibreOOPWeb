@@ -51,25 +51,28 @@ class LibreOOPClient{
     }
 
     
-    public func getStatusIntervalled(uuid: String, intervalSeconds:UInt32=10, maxTries: Int8=6, _ completion:@escaping ((  _ success: Bool, _ message: String, _ oopCurrentValue: OOPCurrentValue? ) -> Void)) {
+    public func getStatusIntervalled(uuid: String, intervalSeconds:UInt32=10, maxTries: Int8=6, _ completion:@escaping ((  _ success: Bool, _ message: String, _ oopCurrentValue: OOPCurrentValue?, _ newState: String) -> Void)) {
         
-        let queue = DispatchQueue.global()
         let sem = DispatchSemaphore(value: 0)
         var oopCurrentValue: OOPCurrentValue? = nil
         var succeeded = false;
         var error = ""
+        var newState2 = ""
         
-        queue.async { 
+        DispatchQueue.global().async {
             for i in 1...maxTries {
                 NSLog("Attempt \(i): Waiting \(intervalSeconds) seconds before calling getstatus")
                 sleep(intervalSeconds)
                 NSLog("Finished waiting \(intervalSeconds) seconds before calling getstatus")
                 if (succeeded) {
+                    error = ""
                     break
+                    
                 }
-                self.getStatus(uuid: uuid, { (success, errormsg, response) in
+                self.getStatus(uuid: uuid, { (success, errormsg, response, newState) in
                     if (success) {
                         succeeded = true
+                        newState2 = newState!
                         oopCurrentValue = self.getOOPCurrentValue(from: response)
                     } else {
                         error = errormsg
@@ -79,7 +82,8 @@ class LibreOOPClient{
                 
                 sem.wait();
                 
-                if let oopCurrentValue = oopCurrentValue {
+                /*if let oopCurrentValue = oopCurrentValue {
+                    
                     NSLog("Hey hop, response received with success: \(succeeded)");
                     NSLog("Decoded content")
                     NSLog("  Current trend: \(oopCurrentValue.currentTrend)")
@@ -92,14 +96,17 @@ class LibreOOPClient{
                         NSLog(String(format: "    #%02d: time: \(historyValue.time), quality: \(historyValue.quality), bg: \(historyValue.bg)", i))
                         i += 1
                     }
-                }
+                }*/
+                
+                
                 
                 if (succeeded) {
+                    error = ""
                     break
                 }
             }
             
-            completion(succeeded, error, oopCurrentValue)
+            completion(succeeded, error, oopCurrentValue, newState2)
         }
     }
     
@@ -122,37 +129,39 @@ class LibreOOPClient{
     }
 
     
-    private func getStatus(uuid: String, _ completion:@escaping ((  _ success: Bool, _ message: String, _ response: String? )-> Void)){
+    private func getStatus(uuid: String, _ completion:@escaping ((  _ success: Bool, _ message: String, _ response: String?, _ newState: String? )-> Void)){
         postToServer({ (data, response, success) in
             NSLog("getstatus here:" + response)
             if(!success) {
                 NSLog("Get status failed")
-                completion(false, response, response)
+                completion(false, response, response, nil)
                 return
             }
             let decoder = JSONDecoder()
             do {
                 let response = try decoder.decode(LibreOOPResponse.self, from: data)
+                
                 NSLog("getstatus result received")
                 if let msg = response.message {
                     NSLog("Error sending GetStatus request " + msg)
-                    completion(false, "Error sending GetStatus reques" + msg, nil)
+                    completion(false, "Error sending GetStatus reques" + msg, nil, nil)
                     //failureHandler(msg)
                     return;
                 }
                 if let resp = response.result, let result2 = resp.result {
                     NSLog("GetStatus returned a valid result:"  + result2)
-                    completion(true, "", result2)
+                    
+                    completion(true, "", result2, resp.newState!)
                     return
                 } else {
                     NSLog("Result was not ready,")
-                    completion(false, "Result was not ready", nil)
+                    completion(false, "Result was not ready", nil, nil)
                     return;
                 }
                 
             } catch (let error as NSError){
-                NSLog("getstatus error decoding:" + error.localizedDescription)
-                completion(false, error.localizedDescription, nil)
+                
+                completion(false, error.localizedDescription, nil, nil)
                 return
             }
             
@@ -160,12 +169,10 @@ class LibreOOPClient{
     }
     public func uploadReading(reading: [UInt8], _ completion:@escaping (( _ resp: LibreOOPResponse?, _ success: Bool, _ errorMessage: String)-> Void)){
         
-        let r = LibreOOPClient.readingToString(reading)
-        NSLog("uploading reading! " + r)
         postToServer({ (data, response, success)  in
-            NSLog("uploadreading completed with response: " + response)
+            
             if(!success) {
-                NSLog("Did not succeed uploading request!")
+                
                 completion(nil, false, "network error!?")
                 return
             }
@@ -177,17 +184,16 @@ class LibreOOPClient{
                     return;
                 }
                 
-                NSLog("result was successsfully received!")
+                
                 completion(result, true, "");
                 return;
                 
             } catch let error as NSError{
-                NSLog("uploadreading error decoding:" + error.localizedDescription)
                 completion(nil, false, error.localizedDescription)
                 return
             }
             
-        }, postURL: uploadEndpoint, postparams: ["accesstoken": self.accessToken, "b64contents": r])
+        }, postURL: uploadEndpoint, postparams: ["accesstoken": self.accessToken, "b64contents": LibreOOPClient.readingToString(reading)])
     }
     
 }

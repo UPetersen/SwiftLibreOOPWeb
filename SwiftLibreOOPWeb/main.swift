@@ -70,6 +70,7 @@ var patch : [UInt8] = [
 //note that the accesstoken will be given to you by the libreoopweb admin
 let accessToken = "someName-FollowedByRandomNumberGivenToYouByLibreoopwebAdmin"
 
+
 let site = "https://libreoopweb.azurewebsites.net"
 let remote = LibreOOPClient(accessToken: accessToken, site: site)
 let sema = DispatchSemaphore( value: 0 )
@@ -88,12 +89,14 @@ remote.uploadReading(reading: patch) { (response, success, errormessage) in
         // In case of timeout, the success parameter will be false, errormessage will have contents
         // and the oopCurrentValue will be nil
         // In case of success, oopCurrentValue will be a struct containing the result of the Algorithm
-        remote.getStatusIntervalled(uuid: uuid, { (success, errormessage, oopCurrentValue) in
+        remote.getStatusIntervalled(uuid: uuid, { (success, errormessage, oopCurrentValue, newState) in
             
-            NSLog("GetStatusIntervalled returned with success?: \(success), error: \(errormessage), response: \(String(describing: oopCurrentValue)))")
+            NSLog("GetStatusIntervalled returned with success?: \(success), error: \(errormessage), response: \(String(describing: oopCurrentValue))), newState: \(newState)")
+            NSLog("GetStatusIntervalled  newState: \(newState)")
             
             if let oopCurrentValue = oopCurrentValue {
-                NSLog("Decoded content")
+                
+                /*NSLog("Decoded content")
                 NSLog("  Current trend: \(oopCurrentValue.currentTrend)")
                 NSLog("  Current bg: \(oopCurrentValue.currentBg)")
                 NSLog("  Current time: \(oopCurrentValue.currentTime)")
@@ -103,7 +106,7 @@ remote.uploadReading(reading: patch) { (response, success, errormessage) in
                 for historyValue in oopCurrentValue.historyValues {
                     NSLog(String(format: "    #%02d: time: \(historyValue.time), quality: \(historyValue.quality), bg: \(historyValue.bg)", i))
                     i += 1
-                }
+                }*/
             }
         })
     }

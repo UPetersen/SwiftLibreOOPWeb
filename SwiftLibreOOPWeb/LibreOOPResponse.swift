@@ -56,13 +56,14 @@ struct Result: Codable {
     let createdOn, modifiedOn, uuid, b64Contents: String
     let status: String
     let result: String?
+    let newState: String?
     
     enum CodingKeys: String, CodingKey {
         case createdOn = "CreatedOn"
         case modifiedOn = "ModifiedOn"
         case uuid
         case b64Contents = "b64contents"
-        case status, result
+        case status, result, newState
     }
 }
 
