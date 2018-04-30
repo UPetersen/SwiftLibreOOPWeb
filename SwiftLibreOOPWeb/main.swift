@@ -123,7 +123,7 @@ remote.uploadReading(reading: patch ) { (response, success, errormessage) in
 // fed to the next reading as oldstate. This will in effect smooth any sensor noise.
 // Some example readings passed to the algorithm:
 // CurrentBGs with empty newState:
-//     ["0: 77.0", "1: 84.0", "2: 95.0", "3: 91.0", "4: 88.0"]
+//     ["0: 77.0", "1: 84.0", "2: 95.0", "3: 91.0", "4: 88.0"] 
 // CurrentBGs with prevNewState as old state:
 //     ["0: 77.0", "1: 82.0", "2: 90.0", "3: 91.0", "4: 89.0"]
 // This subfolder should exist in your Documents Folder in the finder
