@@ -42,7 +42,7 @@ struct LibreOOPResponse: Codable {
     let error: Bool
     let command: String?
     let message: String?
-    let result: Result?
+    let result: LibreReadingResult?
     
     enum CodingKeys: String, CodingKey {
         case error = "Error"
@@ -54,11 +54,13 @@ struct LibreOOPResponse: Codable {
 
 
 
-struct Result: Codable {
+struct LibreReadingResult: Codable {
     let createdOn, modifiedOn, uuid, b64Contents: String
     let status: String
     let result: String?
-    let newState: String?
+    var newState: String?
+    
+    
     
     enum CodingKeys: String, CodingKey {
         case createdOn = "CreatedOn"
@@ -69,6 +71,19 @@ struct Result: Codable {
     }
 }
 
+extension LibreReadingResult{
+    var created : Date? {
+        get {
+            return Date.dateFromISOString(string: self.createdOn)
+        }
+    }
+    
+    init(created:String, b64Contents:String, uuid:String="") {
+        
+        self.init(createdOn: created, modifiedOn: created, uuid: uuid, b64Contents: b64Contents, status: "init", result: "", newState: "")
+        
+    }
+}
 // MARK: Encode/decode helpers
 
 class JSONNull: Codable {

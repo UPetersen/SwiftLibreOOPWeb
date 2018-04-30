@@ -167,9 +167,16 @@ class LibreOOPClient{
             
         }, postURL: statusEndpoint, postparams: ["accesstoken": self.accessToken, "uuid": uuid])
     }
-    public func uploadReading(reading: [UInt8], oldState:String?=nil, sensorStartTimestamp: Int?=nil, sensorScanTimestamp: Int?=nil, currentUtcOffset:Int?=nil, _ completion:@escaping (( _ resp: LibreOOPResponse?, _ success: Bool, _ errorMessage: String)-> Void)){
-        var postParams = ["accesstoken": self.accessToken, "b64contents": LibreOOPClient.readingToString(reading)]
+    
+    public func uploadReading(reading: [UInt8], oldState:String?=nil, sensorStartTimestamp: Int?=nil, sensorScanTimestamp: Int?=nil, currentUtcOffset:Int?=nil, _ completion:@escaping (( _ resp: LibreOOPResponse?, _ success: Bool, _ errorMessage: String)-> Void)) {
         
+        self.uploadReading(reading: LibreOOPClient.readingToString(reading), oldState: oldState, sensorStartTimestamp: sensorStartTimestamp, sensorScanTimestamp: sensorScanTimestamp, currentUtcOffset: currentUtcOffset, completion)
+        
+    }
+    public func uploadReading(reading: String, oldState:String?=nil, sensorStartTimestamp: Int?=nil, sensorScanTimestamp: Int?=nil, currentUtcOffset:Int?=nil, _ completion:@escaping (( _ resp: LibreOOPResponse?, _ success: Bool, _ errorMessage: String)-> Void)){
+        var postParams = ["accesstoken": self.accessToken, "b64contents": reading]
+        
+
         if let oldState = oldState {
             postParams["oldState"] = oldState
         }
@@ -213,6 +220,86 @@ class LibreOOPClient{
             }
             
         }, postURL: uploadEndpoint, postparams: postParams)
+    }
+    
+    public func uploadDependantReadings(readings: [LibreReadingResult]) -> [(success: Bool, String, OOPCurrentValue?, String)]?{
+        var ret = [(Bool, String, OOPCurrentValue?, String)]()
+        
+        
+        var prevReading: LibreReadingResult? = nil
+        
+        for (_, var reading) in readings.enumerated(){
+            
+            //the semaphore lets me do the requests in-order
+            let awaiter = DispatchSemaphore( value: 0 )
+            
+            let tempState = prevReading?.newState ?? LibreOOPDefaults.defaultState
+            self.uploadReading(reading: reading.b64Contents, oldState: tempState, sensorStartTimestamp: LibreOOPDefaults.sensorStartTimestamp, sensorScanTimestamp: LibreOOPDefaults.sensorScanTimestamp, currentUtcOffset: LibreOOPDefaults.currentUtcOffset) { (response, success, errormessage) in
+                if(!success) {
+                    NSLog("remote: upload reading failed! \(errormessage)")
+                    ret.append((success, errormessage, nil, ""))
+                    awaiter.signal()
+                    return
+                }
+                
+                if let response = response, let uuid = response.result?.uuid {
+                    print("uuid received: " + uuid)
+                    self.getStatusIntervalled(uuid: uuid, { (success, errormessage, oopCurrentValue, newState) in
+                        if let oopCurrentValue = oopCurrentValue {
+                            ret.append((success, errormessage, oopCurrentValue, newState))
+                            reading.newState = newState
+                            prevReading = reading
+                            
+                            
+                        }
+                        awaiter.signal()
+                    })
+                } else {
+                    awaiter.signal()
+                }
+                
+            }
+            awaiter.wait()
+            
+            
+        }
+        
+        return ret
+    }
+    
+    public static func getLibreReadingsFromFolderContents(subfolder: String) -> [String: String]? {
+        let fm = FileManager.default
+        var files : [URL] = []
+        var assoc = [String: String]()
+        guard var dir = fm.urls(for: .documentDirectory, in: .userDomainMask).first else{
+            print ("cannot construct url dir")
+            return nil
+        }
+        
+        dir = dir.appendingPathComponent(subfolder, isDirectory: true)
+        
+        do {
+            files  = try fm.contentsOfDirectory(at: dir, includingPropertiesForKeys: nil)
+            
+        } catch {
+            print("Error while enumerating files for \(dir.path): \(error.localizedDescription)")
+            return nil
+        }
+        for fileURL in files where fileURL.pathExtension == "txt" {
+            //reading
+            do {
+                let text = try String(contentsOf: fileURL, encoding: .utf8)
+                assoc[fileURL.lastPathComponent] = text
+            }
+            catch let error as NSError{
+                NSLog("reading file \(fileURL) failed, due to: \(error.localizedDescription)")
+                
+            }
+        }
+        
+        
+        return assoc
+        
     }
     
 }
