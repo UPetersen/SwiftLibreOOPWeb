@@ -8,7 +8,6 @@
 
 import Foundation
 
-
 /// Structure for one glucose measurement including value, date and raw data bytes
 struct Measurement {
     /// The date for this measurement
