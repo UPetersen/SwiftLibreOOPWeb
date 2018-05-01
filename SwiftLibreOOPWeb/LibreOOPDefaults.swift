@@ -15,8 +15,8 @@ struct LibreOOPDefaults {
         0xff, 0xff, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
         0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
     ]
-    public static var defaultState:String {
-        get{
+    public static var defaultState: String {
+        get {
             return Data(_defaultState).base64EncodedString()
         }
     }

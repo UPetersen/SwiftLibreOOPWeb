@@ -9,7 +9,7 @@ import Foundation
 
 // Example Libre patch contents.
 // This would typically by a full readout of the sensor from a blureader,blucon, miaomiao or some other nfc to bluetooth bridge.
-var patch : [UInt8] = [
+var patch: [UInt8] = [
     0x3a, 0xcf, 0x10, 0x16, 0x03, 0x00, 0x00, 0x00, // 0x00 Begin of header
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 0x01
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 0x02 End of header
@@ -53,7 +53,7 @@ var patch : [UInt8] = [
     0x72, 0xc2, 0x00, 0x08, 0x82, 0x05, 0x09, 0x51, // 0x28 Beginn of footer
     0x14, 0x07, 0x96, 0x80, 0x5a, 0x00, 0xed, 0xa6, // 0x29
     0x0e, 0x6e, 0x1a, 0xc8, 0x04, 0xdd, 0x58, 0x6d  // 0x2A End of footer
-];
+]
 
 // A positive response from the oop webinterface provides the following string:
 // "Hey hop, response received: some value from android: currentBg: 63 FullAlgoResults: {"currenTrend":0,"currentBg":63.0,"currentTime":4568,"historicBg":[{"bg":111.0,"quality":0,"time":4095},{"bg":115.0,"quality":0,"time":4110},{"bg":113.0,"quality":0,"time":4125},{"bg":129.0,"quality":0,"time":4140},{"bg":172.0,"quality":0,"time":4155},{"bg":169.0,"quality":0,"time":4170},{"bg":137.0,"quality":0,"time":4185},{"bg":132.0,"quality":0,"time":4200},{"bg":153.0,"quality":0,"time":4215},{"bg":212.0,"quality":0,"time":4230},{"bg":260.0,"quality":0,"time":4245},{"bg":286.0,"quality":0,"time":4260},{"bg":295.0,"quality":0,"time":4275},{"bg":276.0,"quality":0,"time":4290},{"bg":232.0,"quality":0,"time":4305},{"bg":179.0,"quality":0,"time":4320},{"bg":153.0,"quality":0,"time":4335},{"bg":156.0,"quality":0,"time":4350},{"bg":167.0,"quality":0,"time":4365},{"bg":181.0,"quality":0,"time":4380},{"bg":179.0,"quality":0,"time":4395},{"bg":162.0,"quality":0,"time":4410},{"bg":150.0,"quality":0,"time":4425},{"bg":133.0,"quality":0,"time":4440},{"bg":115.0,"quality":0,"time":4455},{"bg":107.0,"quality":0,"time":4470},{"bg":100.0,"quality":0,"time":4485},{"bg":91.0,"quality":0,"time":4500},{"bg":81.0,"quality":0,"time":4515},{"bg":69.0,"quality":0,"time":4530},{"bg":62.0,"quality":0,"time":4545},{"bg":0.0,"quality":1,"time":4560}],"serialNumber":"","timestamp":0}
@@ -67,10 +67,8 @@ var patch : [UInt8] = [
 //note that the accesstoken will be given to you by the libreoopweb admin
 let accessToken = "someName-FollowedByRandomNumberGivenToYouByLibreoopwebAdmin"
 
-
 let site = "https://libreoopweb.azurewebsites.net"
 let remote = LibreOOPClient(accessToken: accessToken, site: site)
-
 
 // Uploads one reading only. It uses the defaultstate,
 // meaning that the algorithm will see this as the first ever reading from the sensor
@@ -82,22 +80,22 @@ remote.uploadReading(reading: patch ) { (response, success, errormessage) in
         NSLog("remote: upload reading failed! \(errormessage)")
         return
     }
-    
+
     if let response = response, let uuid = response.result?.uuid {
         print("uuid received: " + uuid)
-        
+
         // The completion handler will be called once the result is available, or when a timeout is received
         // The timeout can be calculated as approx (intervalSeconds * maxTries) seconds
         // In case of timeout, the success parameter will be false, errormessage will have contents
         // and the oopCurrentValue will be nil
         // In case of success, oopCurrentValue will be a struct containing the result of the Algorithm
         remote.getStatusIntervalled(uuid: uuid, { (success, errormessage, oopCurrentValue, newState) in
-            
+
             NSLog("GetStatusIntervalled returned with success?: \(success), error: \(errormessage), response: \(String(describing: oopCurrentValue))), newState: \(newState)")
             NSLog("GetStatusIntervalled  newState: \(newState)")
-            
+
             if let oopCurrentValue = oopCurrentValue {
-                
+
                 /*NSLog("Decoded content")
                  NSLog("  Current trend: \(oopCurrentValue.currentTrend)")
                  NSLog("  Current bg: \(oopCurrentValue.currentBg)")
@@ -112,9 +110,7 @@ remote.uploadReading(reading: patch ) { (response, success, errormessage) in
             }
         })
     }
-    
-    
-    
+
 }
 
 /*
@@ -155,15 +151,7 @@ if let filescontents = LibreOOPClient.getLibreReadingsFromFolderContents(subfold
 
 */
 
-
 //This semaphore wait is neccessary when running as a mac os cli program. Consider removing this in a GUI app
 //it kinda works like python's input() or raw_input() in a cli program, except it doesn't accept input, ofcourse..
 let sema = DispatchSemaphore( value: 0 )
 sema.wait()
-
-
-
-
-
-
-
