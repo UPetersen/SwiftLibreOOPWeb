@@ -16,6 +16,8 @@
 		C66625BF208B1E820044D0B1 /* SensorData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66625BE208B1E820044D0B1 /* SensorData.swift */; };
 		C66625C1208B1EB10044D0B1 /* SensorState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66625C0208B1EB10044D0B1 /* SensorState.swift */; };
 		C66625C3208B1EC40044D0B1 /* Measurement.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66625C2208B1EC40044D0B1 /* Measurement.swift */; };
+		C684D3442098D8A2007C8705 /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = C684D3432098D8A2007C8705 /* Data.swift */; };
+		C6CA6905216FBE1A00C36136 /* LibreOOPCredentials.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6CA6904216FBE1A00C36136 /* LibreOOPCredentials.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -41,6 +43,8 @@
 		C66625BE208B1E820044D0B1 /* SensorData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SensorData.swift; sourceTree = "<group>"; };
 		C66625C0208B1EB10044D0B1 /* SensorState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SensorState.swift; sourceTree = "<group>"; };
 		C66625C2208B1EC40044D0B1 /* Measurement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Measurement.swift; sourceTree = "<group>"; };
+		C684D3432098D8A2007C8705 /* Data.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
+		C6CA6904216FBE1A00C36136 /* LibreOOPCredentials.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LibreOOPCredentials.swift; path = SwiftLibreOOPWeb/LibreOOPCredentials.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,6 +77,8 @@
 		2752E1AD207A1B5B00BCDC08 /* SwiftLibreOOPWeb */ = {
 			isa = PBXGroup;
 			children = (
+				C684D3422098D851007C8705 /* Extensions */,
+				C6CA6904216FBE1A00C36136 /* LibreOOPCredentials.swift */,
 				27D0586A208E4B41000A05D7 /* LibreOOPDefaults.swift */,
 				2752E1BB207AA61400BCDC08 /* LibreOOPResponse.swift */,
 				2752E1AE207A1B5B00BCDC08 /* main.swift */,
@@ -92,6 +98,14 @@
 				C66625C2208B1EC40044D0B1 /* Measurement.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		C684D3422098D851007C8705 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				C684D3432098D8A2007C8705 /* Data.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -153,11 +167,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				2752E1B8207A4E6B00BCDC08 /* LibreOOPWebExtensions.swift in Sources */,
+				C684D3442098D8A2007C8705 /* Data.swift in Sources */,
 				2752E1B6207A1ED900BCDC08 /* LibreOOPClient.swift in Sources */,
 				C66625C3208B1EC40044D0B1 /* Measurement.swift in Sources */,
 				C66625BD208B14EB0044D0B1 /* CRC.swift in Sources */,
 				2752E1BC207AA61400BCDC08 /* LibreOOPResponse.swift in Sources */,
 				2752E1AF207A1B5B00BCDC08 /* main.swift in Sources */,
+				C6CA6905216FBE1A00C36136 /* LibreOOPCredentials.swift in Sources */,
 				C66625C1208B1EB10044D0B1 /* SensorState.swift in Sources */,
 				C66625BF208B1E820044D0B1 /* SensorData.swift in Sources */,
 				27D0586B208E4B41000A05D7 /* LibreOOPDefaults.swift in Sources */,
@@ -281,7 +297,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = L28K36YETG;
+				DEVELOPMENT_TEAM = 26F6YWJYL8;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 			};
@@ -291,7 +307,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = L28K36YETG;
+				DEVELOPMENT_TEAM = 26F6YWJYL8;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 			};

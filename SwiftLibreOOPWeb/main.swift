@@ -7,6 +7,18 @@
 //
 import Foundation
 
+
+//note that the accesstoken will be given to you by the libreoopweb admin
+//let accessToken = "someName-FollowedByRandomNumberGivenToYouByLibreoopwebAdmin"
+guard let accessToken = LibreOOPCredentials(file: "LibreOOPAccessToken.txt").accessToken() else {
+    print("Error: no acces token")
+    abort()
+}
+let site = "https://libreoopweb.azurewebsites.net"
+let remote = LibreOOPClient(accessToken: accessToken, site: site)
+
+
+
 // Example Libre patch contents.
 // This would typically by a full readout of the sensor from a blureader,blucon, miaomiao or some other nfc to bluetooth bridge.
 var patch: [UInt8] = [
@@ -64,11 +76,121 @@ var patch: [UInt8] = [
 //    // recalculate patch data crcs such that the crcs match the modified data and the can be feed into the OOP algorithm
 //    patch = SensorData(bytes: patch)!.bytesWithCorrectCRC()
 
-//note that the accesstoken will be given to you by the libreoopweb admin
-let accessToken = "someName-FollowedByRandomNumberGivenToYouByLibreoopwebAdmin"
+/*
+var raw = UInt16(1000) // 600, 700, 1000, 1500, 2000, 2500, 3000
+var rawTemperature = UInt16(6000) //+ UInt16(0xc000)// 7124, 6420, 6300, 6144, 5816
 
-let site = "https://libreoopweb.azurewebsites.net"
-let remote = LibreOOPClient(accessToken: accessToken, site: site)
+// six byes records with real temperatures
+//var value: [UInt8] = [0xad, 0x02, 0xc8, 0xd4, 0x5b, 0x00] // Original
+//var value: [UInt8] = [0xad, 0x02, 0xC8, 0x14, 0x99, 0x00] //
+//var value: [UInt8] = [0xad, 0x02, 0xC8, 0x9C, 0x58, 0x00] //
+//var value: [UInt8] = [0xad, 0x02, 0xC8, 0x00, 0xD8, 0x00] //
+//var value: [UInt8] = [0xad, 0x02, 0xC8, 0xB8, 0x96, 0x00] //
+
+// Boiling experiment
+//var value: [UInt8] = [0xff, 0x3f, 0xb0, 0x8e, 0x82, 0x87] //
+//var value: [UInt8] = [0xff, 0x3f, 0xb0, 0x8e, 0x82, 0x00] //
+//var value: [UInt8] = [0xff, 0x3f, 0xc8, 0x8e, 0x82, 0x00] //
+//var value: [UInt8] = [0xff, 0x3f, 0xc8, 0x88, 0x96, 0x00] //
+var value: [UInt8] = [0xff, 0x3f, 0xc8, 0xfc, 0xd8, 0x00] //
+
+
+//var value: [UInt8] = [0xad, 0x02, 0xC8, 0x1C, 0xD3, 0x01] //
+//var value: [UInt8] = [0xad, 0x02, 0xC8, 0x44, 0x9A, 0x00] //
+//var value: [UInt8] = [0xad, 0x02, 0xC8, 0x10, 0xDC, 0x00] //
+//var value: [UInt8] = [0xad, 0x02, 0xb0, 0x8e, 0x82, 0x87] //
+
+var tweakedHeader: [UInt8] = [                      // patch from @dabear
+    0x3a, 0xcf, 0x98, 0x16, 0x03, 0x00, 0x00, 0x00, // 0x3a, 0xcf, 0x10, 0x16, 0x03, 0x00, 0x00, 0x00, // Begin of header
+    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 0x01
+    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00] // 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00] // 0x02 End of header
+var tweakedFooter: [UInt8] = [                      // patch from @dabear
+    0x72, 0xc2, 0x00, 0x08, 0xd3, 0x04, 0x7d, 0x82, // 0x72, 0xc2, 0x00, 0x08, 0x82, 0x05, 0x09, 0x51, // 0x28 Beginn of footer
+    0x14, 0x07, 0x96, 0x80, 0x5a, 0x00, 0xed, 0xa6, // 0x14, 0x07, 0x96, 0x80, 0x5a, 0x00, 0xed, 0xa6, // 0x29
+    0x14, 0x76, 0x1a, 0xa0, 0x04, 0xe4, 0x69, 0x70] // 0x0e, 0x6e, 0x1a, 0xc8, 0x04, 0xdd, 0x58, 0x6d] // 0x2A End of footer
+
+//var tweakedHeader: [UInt8] = [                      // own patch from 2018-06-30
+//    0xa7, 0xf8, 0x38, 0x15, 0x03, 0x00, 0x00, 0x00, // 0xa7, 0xf8, 0x38, 0x15, 0x03, 0x00, 0x00, 0x00, // 0x00 Begin of header
+//    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 0x01
+//    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00] // 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00] // 0x02 End of header
+//var tweakedFooter: [UInt8] = [                      // own patch from 2018-06-30
+//    0xf8, 0xa6, 0x00, 0x01, 0x06, 0x07, 0x22, 0x51, // 0xf8, 0xa6, 0x00, 0x01, 0x06, 0x07, 0x22, 0x51, // 0x28 Beginn of footer
+//    0x14, 0x07, 0x96, 0x80, 0x5a, 0x00, 0xed, 0xa6, // 0x14, 0x07, 0x96, 0x80, 0x5a, 0x00, 0xed, 0xa6, // 0x29
+//    0x14, 0x4e, 0x1a, 0xc8, 0x04, 0xb5, 0x59, 0x74] // 0x14, 0x4e, 0x1a, 0xc8, 0x04, 0xb5, 0x59, 0x74] // 0x2A End of footer
+
+//var tweakedHeader: [UInt8] = [                      // own patch from 2016-02-02
+//    0x2d, 0xb7, 0xc8, 0x15, 0x03, 0x00, 0x00, 0x00, // 0xa7, 0xf8, 0x38, 0x15, 0x03, 0x00, 0x00, 0x00, // 0x00 Begin of header
+//    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 0x01
+//    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00] // 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00] // 0x02 End of header
+//var tweakedFooter: [UInt8] = [                      // own patch from 2016-02-02
+//    0xad, 0x71, 0x00, 0x00, 0xda, 0x03, 0xa3, 0x50, // 0xad, 0x71, 0x00, 0x00, 0xda, 0x03, 0xa3, 0x50, // 0x28 Beginn of footer
+//    0x14, 0x07, 0x96, 0x80, 0x5a, 0x00, 0xed, 0xa6, // 0x14, 0x07, 0x96, 0x80, 0x5a, 0x00, 0xed, 0xa6, // 0x29
+//    0x0a, 0x81, 0x1a, 0xe9, 0x04, 0xae, 0x2c, 0x70] // 0x0a, 0x81, 0x1a, 0xe9, 0x04, 0xae, 0x2c, 0x70] // 0x2A End of footer
+
+//var tweakedHeader: [UInt8] = [                      // own patch from 2016-12-10 17:43:46 hours (TaginfoScan)
+//    0x50, 0x7A, 0x88, 0x13, 0x03, 0x00, 0x00, 0x00, // 0x50, 0x7A, 0x88, 0x13, 0x03, 0x00, 0x00, 0x00
+//    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // 0x01
+//    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00] // 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00] // 0x02 End of header
+//var tweakedFooter: [UInt8] = [                      // own patch from 2016-12-10 17:43:46 hours (TaginfoScan)
+//    0x6C, 0x0C, 0x00, 0x01, 0xD3, 0x04, 0x7D, 0x51, // 0x6C, 0x0C, 0x00, 0x01, 0xD3, 0x04, 0x7D, 0x51,
+//    0x14, 0x07, 0x96, 0x80, 0x5A, 0x00, 0xED, 0xA6, // 0x14, 0x07, 0x96, 0x80, 0x5A, 0x00, 0xED, 0xA6,
+//    0x14, 0x76, 0x1A, 0xC8, 0x04, 0xE4, 0x39, 0x6C] // 0x14, 0x76, 0x1A, 0xC8, 0x04, 0xE4, 0x39, 0x6C]
+
+//var tweakedHeader: [UInt8] = [                      // own patch from 2018-06-15  (TaginfoScan)
+//    0xA7, 0xF8, 0x38, 0x15, 0x03, 0x00, 0x00, 0x00,
+//    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+//    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+//var tweakedFooter: [UInt8] = [                      // own patch from 2018-06-15  (TaginfoScan)
+//    0x94, 0xE0, 0x00, 0x01, 0x06, 0x07, 0xAF, 0x50,
+//    0x14, 0x07, 0x96, 0x80, 0x5A, 0x00, 0xED, 0xA6,
+//    0x0E, 0x6A, 0x1A, 0xC8, 0x04, 0x9F, 0xB9, 0x6E]
+
+//var tweakedHeader: [UInt8] = [                      // own patch from 2017-08-12  (TaginfoScan)
+//    0x14, 0xC4, 0xD8, 0x16, 0x03, 0x00, 0x00, 0x00,
+//    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+//    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+//var tweakedFooter: [UInt8] = [                      // own patch from 2017-08-12  (TaginfoScan)
+//    0xE4, 0x2D, 0x00, 0x01, 0xD5, 0x05, 0x0F, 0x51,
+//    0x14, 0x07, 0x96, 0x80, 0x5A, 0x00, 0xED, 0xA6,
+//    0x14, 0x69, 0x1A, 0xC8, 0x04, 0x9F, 0xC9, 0x6C]
+
+//var tweakedHeader: [UInt8] = [                      // own patch from 2017-05-15  (TaginfoScan)
+//    0xA4, 0x1F, 0x98, 0x16, 0x03, 0x00, 0x00, 0x00,
+//    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+//    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+//var tweakedFooter: [UInt8] = [                      // own patch from 2017-05-15  (TaginfoScan)
+//    0x8C, 0xEF, 0x00, 0x01, 0xB6, 0x05, 0x04, 0x51,
+//    0x14, 0x07, 0x96, 0x80, 0x5A, 0x00, 0xED, 0xA6,
+//    0x12, 0x7D, 0x1A, 0xC8, 0x04, 0xC0, 0x69, 0x7A]
+
+
+value[0] = UInt8(raw & 0xFF)
+value[1] = UInt8(raw >> 8)
+
+value[3] = UInt8(rawTemperature & 0xFF)
+value[4] = UInt8(rawTemperature >> 8)
+
+
+var modifiedPatch: [UInt8] = Array(tweakedHeader) // var modifiedPatch: [UInt8] = Array(patch[0..<28])
+modifiedPatch += patch[24..<28]  // first four bytes of body from original patch (crc and index on trend and history values)
+for _ in 1...48 {
+    modifiedPatch += value // always the same data
+}
+modifiedPatch += patch[316..<320] // Rest of data (minute counter and two zeros.)
+modifiedPatch += tweakedFooter // patch[320..<344]
+
+// Start of experiment for @tzachi-dar:
+//modifiedPatch[26] = UInt8(0x03)
+//modifiedPatch[27] = UInt8(0x04)
+//modifiedPatch[316] = UInt8(0xe4)
+//modifiedPatch[317] = UInt8(0x41)
+// End of experiment for @tzachi-dar
+
+patch = SensorData(bytes: modifiedPatch)!.bytesWithCorrectCRC()
+let sensorData = SensorData(bytes: patch)!
+print(sensorData.bytes)
+
+
 
 // Uploads one reading only. It uses the defaultstate,
 // meaning that the algorithm will see this as the first ever reading from the sensor
@@ -93,6 +215,12 @@ remote.uploadReading(reading: patch ) { (response, success, errormessage) in
 
             NSLog("GetStatusIntervalled returned with success?: \(success), error: \(errormessage), response: \(String(describing: oopCurrentValue))), newState: \(newState)")
             NSLog("GetStatusIntervalled  newState: \(newState)")
+            
+            if let newState = newState.base64Decoded(), let oldState = LibreOOPDefaults.defaultState.base64Decoded() {
+                print("patch   : \(Data(patch).hexEncodedString())")
+                print("oldState: \(Data(oldState).hexEncodedString())")
+                print("newState: \(Data(newState).hexEncodedString())")
+            }
 
             if let oopCurrentValue = oopCurrentValue {
 
@@ -110,10 +238,17 @@ remote.uploadReading(reading: patch ) { (response, success, errormessage) in
             }
         })
     }
-
 }
+*/
 
 /*
+if let filescontents = LibreOOPClient.getLibreReadingsFromFolderContents(subfolder:"librereadings") {
+    var patchTest: [UInt8] = filescontents["reading1.txt"]!.base64Decoded()!
+    print(patchTest.debugDescription)
+    print(Data(patchTest).hexEncodedString())
+}
+//filescontents["reading1.txt"]
+
 // This uploads multiple readings. These readings are assumed to be cronological and from the same sensor
 // They should be about five minutes apart. Note that the newState returned from one reading will be
 // fed to the next reading as oldstate. This will in effect smooth any sensor noise.
@@ -133,7 +268,6 @@ if let filescontents = LibreOOPClient.getLibreReadingsFromFolderContents(subfold
         LibreReadingResult(created: "2018-04-23T03:59:21.403Z", b64Contents: filescontents["reading3.txt"]!),
         LibreReadingResult(created: "2018-04-23T04:04:29.507Z", b64Contents: filescontents["reading4.txt"]!),
         LibreReadingResult(created: "2018-04-23T04:09:21.186Z", b64Contents: filescontents["reading5.txt"]!)
-        
     ]
     
     if let res = remote.uploadDependantReadings(readings: readings) {
@@ -148,10 +282,89 @@ if let filescontents = LibreOOPClient.getLibreReadingsFromFolderContents(subfold
 } else {
     print ("could not read files in subfolder \(subfolder)")
 }
-
 */
+
+
+// Experiment section: Modify some data, calculate the correct crc for the modified data and send it too OOP
+
+var raw = UInt16(3000) // 600, 1000, 1500, 2000, 2500, 3000
+
+//var value: [UInt8] = [0xad, 0x02, 0xc8, 0xd4, 0x5b, 0x00] //
+//var value: [UInt8] = [0xad, 0x02, 0xC8, 0x14, 0x99, 0x00] //
+//var value: [UInt8] = [0xad, 0x02, 0xC8, 0x00, 0xD8, 0x00] //
+//var value: [UInt8] = [0xad, 0x02, 0xC8, 0x1C, 0xD3, 0x01] //
+//var value: [UInt8] = [0xad, 0x02, 0xC8, 0xB8, 0x96, 0x00] //
+//var value: [UInt8] = [0xad, 0x02, 0xC8, 0x9C, 0x58, 0x00] //
+
+//var value: [UInt8] = [0xad, 0x02, 0xC8, 0x44, 0x9A, 0x00] //
+//var value: [UInt8] = [0xad, 0x02, 0xC8, 0x10, 0xDC, 0x00] //
+var value: [UInt8] = [0xad, 0x02, 0xb0, 0x8e, 0x82, 0x87] //
+
+value[0] = UInt8(raw & 0xFF)
+value[1] = UInt8(raw >> 8)
+
+var modifiedPatch: [UInt8] = Array(patch[0..<28])
+for _ in 1...48 {
+    modifiedPatch += value
+}
+modifiedPatch += patch[316..<344]
+patch = SensorData(bytes: modifiedPatch)!.bytesWithCorrectCRC()
+let sensorData = SensorData(bytes: patch)!
+
+var theReadings = [LibreReadingResult]()
+    for i in 1..<3 {
+        theReadings.append(LibreReadingResult(created: "2018-04-23T03:49:47.986Z" + ": #\(i)", b64Contents: sensorData.oopWebInterfaceInput()))
+    }
+
+var fileURL: URL?
+if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
+    fileURL = dir.appendingPathComponent(Date().description)
+}
+
+var aString = String()
+
+//if let result = remote.uploadDependantReadings(readings: theReadings), let fileURL = fileURL {
+//    print("got result:")
+//    result.forEach { (success, error, value, newstate) in
+//        if success{
+//            print("success")
+//            print(value?.currentBg ?? "")
+//            //writing
+//
+//             aString.append( "Result: \(value?.currentBg), \(value?.currentTrend), \(value?.currentTime)\n")
+//            do {
+//                try aString.write(to: fileURL, atomically: true, encoding: .utf8)
+//            }
+//            catch {/* error handling here */}
+//        }
+//    }
+//}
+
+if let result = remote.uploadIndependentReadings(readings: theReadings), let fileURL = fileURL {
+    print("got result:")
+    result.forEach { (success, error, value, newstate, reading) in
+        if success{
+            print("success")
+            print(value?.currentBg ?? "")
+            
+            aString.append( "Result: \(value?.currentBg), \(value?.currentTrend), \(value?.currentTime)\n, \(reading.b64Contents)")
+            do {
+                try aString.write(to: fileURL, atomically: true, encoding: .utf8)
+            }
+            catch {/* error handling here */}
+        }
+    }
+}
+
+
+// End of experiment section
+
+
 
 //This semaphore wait is neccessary when running as a mac os cli program. Consider removing this in a GUI app
 //it kinda works like python's input() or raw_input() in a cli program, except it doesn't accept input, ofcourse..
 let sema = DispatchSemaphore( value: 0 )
 sema.wait()
+
+
+

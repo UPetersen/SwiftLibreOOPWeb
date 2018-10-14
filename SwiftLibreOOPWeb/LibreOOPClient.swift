@@ -254,6 +254,48 @@ class LibreOOPClient {
         return ret
     }
 
+    
+    public func uploadIndependentReadings(readings: [LibreReadingResult]) -> [(success: Bool, String, OOPCurrentValue?, String, LibreReadingResult)]? {
+        var oopResult = [(Bool, String, OOPCurrentValue?, String, LibreReadingResult)]()
+        
+//        var prevReading: LibreReadingResult? = nil
+        
+        for (_, var reading) in readings.enumerated() {
+            
+            //the semaphore lets me do the requests in-order
+            let awaiter = DispatchSemaphore( value: 0 )
+            
+//            let tempState = prevReading?.newState ?? LibreOOPDefaults.defaultState
+            
+            self.uploadReading(reading: reading.b64Contents, oldState: LibreOOPDefaults.defaultState, sensorStartTimestamp: LibreOOPDefaults.sensorStartTimestamp, sensorScanTimestamp: LibreOOPDefaults.sensorScanTimestamp, currentUtcOffset: LibreOOPDefaults.currentUtcOffset) { (response, success, errormessage) in
+                if(!success) {
+                    NSLog("remote: upload reading failed! \(errormessage)")
+                    oopResult.append((success, errormessage, nil, "", reading))
+                    awaiter.signal()
+                    return
+                }
+                
+                if let response = response, let uuid = response.result?.uuid {
+                    print("uuid received: " + uuid)
+                    self.getStatusIntervalled(uuid: uuid, { (success, errormessage, oopCurrentValue, newState) in
+                        if let oopCurrentValue = oopCurrentValue {
+                            oopResult.append((success, errormessage, oopCurrentValue, newState, reading))
+                            reading.newState = newState
+//                            prevReading = reading
+                        }
+                        awaiter.signal()
+                    })
+                } else {
+                    awaiter.signal()
+                }
+            }
+            awaiter.wait()
+        }
+        return oopResult
+    }
+
+    
+    
     public static func getLibreReadingsFromFolderContents(subfolder: String) -> [String: String]? {
         let fm = FileManager.default
         var files: [URL] = []
