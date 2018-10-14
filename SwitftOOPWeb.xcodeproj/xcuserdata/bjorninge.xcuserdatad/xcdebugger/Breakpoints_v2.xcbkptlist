@@ -122,11 +122,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SwiftLibreOOPWeb/LibreOOPClient.swift"
-            timestampString = "546784961.903398"
+            timestampString = "561207557.699275"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "105"
-            endingLineNumber = "105"
+            startingLineNumber = "104"
+            endingLineNumber = "104"
             landmarkName = "getStatusIntervalled(uuid:intervalSeconds:maxTries:_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -138,13 +138,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SwiftLibreOOPWeb/main.swift"
-            timestampString = "546784961.9035029"
+            timestampString = "561207557.69935"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "158"
-            endingLineNumber = "158"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            startingLineNumber = "39"
+            endingLineNumber = "39">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -154,11 +152,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SwiftLibreOOPWeb/LibreOOPClient.swift"
-            timestampString = "546784961.904072"
+            timestampString = "561207557.6997679"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "197"
-            endingLineNumber = "197"
+            startingLineNumber = "196"
+            endingLineNumber = "196"
             landmarkName = "uploadReading(reading:oldState:sensorStartTimestamp:sensorScanTimestamp:currentUtcOffset:_:)"
             landmarkType = "7">
             <Locations>
@@ -202,12 +200,28 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SwiftLibreOOPWeb/LibreOOPClient.swift"
-            timestampString = "546784961.904144"
+            timestampString = "561207557.6998219"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "204"
-            endingLineNumber = "204"
+            startingLineNumber = "203"
+            endingLineNumber = "203"
             landmarkName = "uploadReading(reading:oldState:sensorStartTimestamp:sensorScanTimestamp:currentUtcOffset:_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SwiftLibreOOPWeb/LibreOOPClient.swift"
+            timestampString = "561207557.69987"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "216"
+            endingLineNumber = "216"
+            landmarkName = "uploadDependantReadings(readings:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -217,46 +231,14 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "SwiftLibreOOPWeb/LibreOOPClient.swift"
-            timestampString = "546784961.9042079"
+            filePath = "SwiftLibreOOPWeb/MoreExamples.swift"
+            timestampString = "561207557.699917"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "217"
-            endingLineNumber = "217"
-            landmarkName = "uploadReading(reading:oldState:sensorStartTimestamp:sensorScanTimestamp:currentUtcOffset:_:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Foundation.Data, Swift.String, Swift.Bool) -&gt; () in SwitftOOPWeb.LibreOOPClient.uploadReading(reading: Swift.String, oldState: Swift.Optional&lt;Swift.String&gt;, sensorStartTimestamp: Swift.Optional&lt;Swift.Int&gt;, sensorScanTimestamp: Swift.Optional&lt;Swift.Int&gt;, currentUtcOffset: Swift.Optional&lt;Swift.Int&gt;, (Swift.Optional&lt;SwitftOOPWeb.LibreOOPResponse&gt;, Swift.Bool, Swift.String) -&gt; ()) -&gt; ()"
-                  moduleName = "SwitftOOPWeb"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/bjorninge/Code/SwitftOOPWeb/SwiftLibreOOPWeb/LibreOOPClient.swift"
-                  timestampString = "546784962.390519"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "217"
-                  endingLineNumber = "217"
-                  offsetFromSymbolStart = "4061">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Foundation.Data, Swift.String, Swift.Bool) -&gt; () in SwitftOOPWeb.LibreOOPClient.uploadReading(reading: Swift.String, oldState: Swift.Optional&lt;Swift.String&gt;, sensorStartTimestamp: Swift.Optional&lt;Swift.Int&gt;, sensorScanTimestamp: Swift.Optional&lt;Swift.Int&gt;, currentUtcOffset: Swift.Optional&lt;Swift.Int&gt;, (Swift.Optional&lt;SwitftOOPWeb.LibreOOPResponse&gt;, Swift.Bool, Swift.String) -&gt; ()) -&gt; ()"
-                  moduleName = "SwitftOOPWeb"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/bjorninge/Code/SwitftOOPWeb/SwiftLibreOOPWeb/LibreOOPClient.swift"
-                  timestampString = "546784962.392922"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "217"
-                  endingLineNumber = "217"
-                  offsetFromSymbolStart = "4731">
-               </Location>
-            </Locations>
+            startingLineNumber = "18"
+            endingLineNumber = "18"
+            landmarkName = "uploadReadingExample1()"
+            landmarkType = "9">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

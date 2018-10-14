@@ -11,6 +11,8 @@
 		2752E1B6207A1ED900BCDC08 /* LibreOOPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2752E1B5207A1ED900BCDC08 /* LibreOOPClient.swift */; };
 		2752E1B8207A4E6B00BCDC08 /* LibreOOPWebExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2752E1B7207A4E6B00BCDC08 /* LibreOOPWebExtensions.swift */; };
 		2752E1BC207AA61400BCDC08 /* LibreOOPResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2752E1BB207AA61400BCDC08 /* LibreOOPResponse.swift */; };
+		27BA004321734D80005B3E1D /* LibreUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27BA004221734D80005B3E1D /* LibreUtils.swift */; };
+		27BA004521735450005B3E1D /* MoreExamples.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27BA004421735450005B3E1D /* MoreExamples.swift */; };
 		27D0586B208E4B41000A05D7 /* LibreOOPDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27D0586A208E4B41000A05D7 /* LibreOOPDefaults.swift */; };
 		C66625BD208B14EB0044D0B1 /* CRC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66625BC208B14EB0044D0B1 /* CRC.swift */; };
 		C66625BF208B1E820044D0B1 /* SensorData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66625BE208B1E820044D0B1 /* SensorData.swift */; };
@@ -38,6 +40,8 @@
 		2752E1B5207A1ED900BCDC08 /* LibreOOPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibreOOPClient.swift; sourceTree = "<group>"; };
 		2752E1B7207A4E6B00BCDC08 /* LibreOOPWebExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibreOOPWebExtensions.swift; sourceTree = "<group>"; };
 		2752E1BB207AA61400BCDC08 /* LibreOOPResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LibreOOPResponse.swift; sourceTree = "<group>"; };
+		27BA004221734D80005B3E1D /* LibreUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibreUtils.swift; sourceTree = "<group>"; };
+		27BA004421735450005B3E1D /* MoreExamples.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreExamples.swift; sourceTree = "<group>"; };
 		27D0586A208E4B41000A05D7 /* LibreOOPDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibreOOPDefaults.swift; sourceTree = "<group>"; };
 		C66625BC208B14EB0044D0B1 /* CRC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CRC.swift; sourceTree = "<group>"; };
 		C66625BE208B1E820044D0B1 /* SensorData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SensorData.swift; sourceTree = "<group>"; };
@@ -85,6 +89,8 @@
 				2752E1B5207A1ED900BCDC08 /* LibreOOPClient.swift */,
 				2752E1B7207A4E6B00BCDC08 /* LibreOOPWebExtensions.swift */,
 				C66625C4208B27A40044D0B1 /* Model */,
+				27BA004221734D80005B3E1D /* LibreUtils.swift */,
+				27BA004421735450005B3E1D /* MoreExamples.swift */,
 			);
 			path = SwiftLibreOOPWeb;
 			sourceTree = "<group>";
@@ -140,6 +146,7 @@
 				TargetAttributes = {
 					2752E1AA207A1B5B00BCDC08 = {
 						CreatedOnToolsVersion = 9.2;
+						LastSwiftMigration = 1000;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -169,8 +176,10 @@
 				2752E1B8207A4E6B00BCDC08 /* LibreOOPWebExtensions.swift in Sources */,
 				C684D3442098D8A2007C8705 /* Data.swift in Sources */,
 				2752E1B6207A1ED900BCDC08 /* LibreOOPClient.swift in Sources */,
+				27BA004521735450005B3E1D /* MoreExamples.swift in Sources */,
 				C66625C3208B1EC40044D0B1 /* Measurement.swift in Sources */,
 				C66625BD208B14EB0044D0B1 /* CRC.swift in Sources */,
+				27BA004321734D80005B3E1D /* LibreUtils.swift in Sources */,
 				2752E1BC207AA61400BCDC08 /* LibreOOPResponse.swift in Sources */,
 				2752E1AF207A1B5B00BCDC08 /* main.swift in Sources */,
 				C6CA6905216FBE1A00C36136 /* LibreOOPCredentials.swift in Sources */,
@@ -299,7 +308,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 26F6YWJYL8;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Debug;
 		};
@@ -309,7 +318,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 26F6YWJYL8;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Release;
 		};
